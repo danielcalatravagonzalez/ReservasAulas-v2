@@ -16,7 +16,7 @@ public class Aula {
 		setPuestos(puestos);
 	}
 	
-	//Constructor copia, validamos si es nulo, si no es nulo cogemos los getters
+	//Constructor copia, validamos si es nulo, si no es nulo cogemos los setters
 	public Aula(Aula otraAula) {
 		if (otraAula == null) {
 			throw new NullPointerException("ERROR: No se puede copiar un aula nula.");
@@ -61,19 +61,20 @@ public class Aula {
 	
 	//Getter de puntos
 	public float getPuntos() {
-		return PUNTOS_POR_PUESTO;
+		float puntos = getPuestos()*PUNTOS_POR_PUESTO;
+		return puntos;
 	}
 	
 	//Método getAulaFicticia
 	public static Aula getAulaFicticia(String aula) {
 		Aula aula1 = new Aula("Ciencias", 20);
-		return aula1;
+		return new Aula(aula1);
 	}
 
 	//Métodos hashCode y equals
 	@Override
 	public int hashCode() {
-		return Objects.hash(nombre);
+		return Objects.hash(nombre, puestos);
 	}
 
 	@Override
