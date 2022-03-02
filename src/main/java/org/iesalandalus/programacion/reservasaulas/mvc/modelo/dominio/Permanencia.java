@@ -2,12 +2,11 @@ package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public abstract class Permanencia {
 	//Atributos
 	private LocalDate dia;
-	private static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	//Constructor con parámetros
 	public Permanencia(LocalDate dia) {
@@ -51,7 +50,7 @@ public abstract class Permanencia {
 	@Override
 	public String toString() {
 
-		return "dia=" + dia.format(FORMATO_DIA);
+		return "día=" + dia.format(FORMATO_DIA);
 	}
 	public abstract int compareTo(Permanencia otraPermanencia);
 }
