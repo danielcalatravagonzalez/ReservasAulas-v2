@@ -1,13 +1,16 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.vista;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanencia;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.PermanenciaPorTramo;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Tramo;
 import org.iesalandalus.programacion.reservasaulas.mvc.controlador.Controlador;
 
 public class Vista {
@@ -185,13 +188,21 @@ public class Vista {
 	// Método listarReservas
 	public void listarReservas() {
 		Consola.mostrarCabecera("Listar Reservas");
-		List<String> reservas = controlador.representarReservas();
-		if (reservas.size() != 0) {
-			for (String reserva : reservas) {
-				System.out.println(reserva);
-			}
+		List<Reserva> listaReservas = null;
+		try {
+			Permanencia permanencia=null;
+			permanencia = new PermanenciaPorTramo(Consola.leerDia(),Tramo.TARDE);
+			listaReservas = controlador.getReservasPermanencia(permanencia);	
+		} catch (NullPointerException | IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+		if (listaReservas == null) {
+			System.out.println("No existen reservas");
 		} else {
-			System.out.println("No hay reservas que listar.");
+			Iterator<Reserva> iterador = listaReservas.iterator();
+			while (iterador.hasNext()) {
+				System.out.println(iterador.next().toString());
+			}
 		}
 	}
 
@@ -220,20 +231,6 @@ public class Vista {
 			}
 		} else {
 			System.out.println(profesor.getNombre() + " no tiene ninguna reserva a su nombre.");
-		}
-	}
-
-	// Método listarReservasPermanencia
-	public void listarReservasPermanencia() {
-		Consola.mostrarCabecera("Listar reservas permanencia");
-		Permanencia permanencia = new Permanencia(Consola.leerDia(), Consola.leerTramo());
-		List<Reserva> reservasPermanencia = controlador.getReservasPermanencia(permanencia);
-		if (reservasPermanencia.size() != 0) {
-			for (Reserva reservaPermanencia : reservasPermanencia) {
-				System.out.println(reservaPermanencia);
-			}
-		} else {
-			System.out.println(permanencia.getDia() + ": no hay ninguna reserva.");
 		}
 	}
 
