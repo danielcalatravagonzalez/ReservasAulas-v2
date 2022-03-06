@@ -27,7 +27,7 @@ public class Reserva {
 		
 	}
 	
-	// Setter de profesor
+	// Setter de profesor, validamos null y creamos una nueva instancia de profesor
 	private void setProfesor(Profesor profesor) {
 		if (profesor == null) {
 			throw new NullPointerException ("ERROR: La reserva debe estar a nombre de un profesor.");
@@ -42,7 +42,7 @@ public class Reserva {
 		return new Profesor(profesor);
 	}
 
-	// Setter de aula
+	// Setter de aula, validamos null y creamos una nueva instancia de aula
 	private void setAula(Aula aula) {
 		if (aula == null) {
 			throw new NullPointerException ("ERROR: La reserva debe ser para un aula concreta.");
@@ -57,26 +57,42 @@ public class Reserva {
 		return new Aula(aula);
 	}
 
-	// Setter de permanencia
+	// Setter de permanencia, comprobamos que sea nulo, si no variamos entre instancia por tramo y por hora
 	private void setPermanencia(Permanencia permanencia) {
 		if (permanencia == null) {
 			throw new NullPointerException ("ERROR: La reserva se debe hacer para una permanencia concreta.");
-		} else {
-			this.permanencia = new Permanencia(permanencia);
+		} else if (permanencia instanceof PermanenciaPorHora) {
+				this.permanencia = new PermanenciaPorHora((PermanenciaPorHora) permanencia);
+		} else if (permanencia instanceof PermanenciaPorTramo) {
+			this.permanencia = new PermanenciaPorTramo((PermanenciaPorTramo) permanencia);
+		}
+	}
+	
+	// Getter de permanencia, creamos una variable copia para diferenciar las instancias entre tramo y hora
+	// y el método devuelve la variable copiaPermanencia
+	public Permanencia getPermanencia() {
+		Permanencia copiaPermanencia=null;
+		if (permanencia instanceof PermanenciaPorHora) {
+			copiaPermanencia=new PermanenciaPorHora((PermanenciaPorHora)permanencia);
+		}
+		else if (permanencia instanceof PermanenciaPorTramo) {
+			copiaPermanencia=new PermanenciaPorTramo((PermanenciaPorTramo)permanencia);
+		}
+		return copiaPermanencia;
+	}
+	
+	// Método getReservaFicticia, a partir de un Aula y una permanencia por parámetro
+	// obtiene un profesor ficticio y devuelve una reserva
+		public static Reserva getReservaFicticia(Aula aula, Permanencia permanencia) {
+			Reserva reserva=new Reserva(Profesor.getProfesorFicticio("correodeprueba@gmail.com"), aula, permanencia);
+			return new Reserva(reserva);
 		}
 		
-	}
-	
-	// Getter de permanencia
-	public Permanencia getPermanencia() {
-		return new Permanencia(permanencia);
-	}
-	
-	// Método getReservaFicticia
-		public static Reserva getReservaFicticia(Aula aula, Permanencia permanencia) {
-			Reserva reserva = new Reserva("Eduardo", aula, permanencia);
-			return reserva ;
+	//Método getPuntos, recoge los puntos de permanencia y aula
+		public float getPuntos() {
+			return permanencia.getPuntos() + aula.getPuntos();
 		}
+		
 
 	//Métodos hashCode y equals
 	@Override
@@ -97,7 +113,7 @@ public class Reserva {
 	//Método toString
 	@Override
 	public String toString() {
-		return "Profesor=" + profesor + ", aula=" + aula + ", permanencia=" + permanencia + "";
+		return profesor.toString() + ", " + aula.toString() + ", " + permanencia.toString() + ", puntos=" + String.format("%.1f", getPuntos()) + "";
 	}
 	
 }

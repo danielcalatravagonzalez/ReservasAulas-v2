@@ -91,6 +91,13 @@ public class Aula {
 	public String toString() {
 		return "nombre=" + nombre + ", puestos=" + puestos;
 	}
+	
+	//Método compareTo
+	public int compareTo(Aula aula) {
+		int resultado=0;
+		resultado=this.getNombre().compareTo(aula.getNombre());
+		return resultado;
+	}
 
 
 }
