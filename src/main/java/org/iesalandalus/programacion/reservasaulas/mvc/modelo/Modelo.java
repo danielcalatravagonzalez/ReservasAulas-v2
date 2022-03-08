@@ -19,7 +19,7 @@ public class Modelo implements IModelo {
 	IReservas reservas;
 
 	// Constructor por defecto
-	public Modelo(IFuenteDatos datos) {
+	public Modelo() {
 		aulas = FactoriaFuenteDatos.MEMORIA.crear().crearAulas();
 		profesores = FactoriaFuenteDatos.MEMORIA.crear().crearProfesores();
 		reservas = FactoriaFuenteDatos.MEMORIA.crear().crearReservas();

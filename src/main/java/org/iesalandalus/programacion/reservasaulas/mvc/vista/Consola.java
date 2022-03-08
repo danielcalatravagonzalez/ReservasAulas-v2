@@ -53,21 +53,26 @@ public class Consola {
 
 	// Método leerAula
 	public static Aula leerAula() {
-		return new Aula(leerNombreAula(), leerNumeroPuestos());
+		System.out.println("Introduce el nombre del aula: ");
+		String nombre = Entrada.cadena();
+		System.out.println("Introduce el número de puestos del aula: ");
+		int puestos = Entrada.entero();
+		return new Aula(nombre, puestos);
 
 	}
 	
 	//Método leerNumeroPuestos
 	public static int leerNumeroPuestos() {
 		System.out.println("Introduzca el número de puestos del aula");
-		int puestosAula = Entrada.entero();
-		return puestosAula;
+		int puestos = Entrada.entero();
+		return puestos;
 	}
 	
 	//Método leerAulaFicticia
 	public static Aula leerAulaFicticia() {
-		Aula aula = new Aula(leerNombreAula(), 30);
-		return new Aula(aula);
+		System.out.println("Introduce el nombre del aula: ");
+		String nombre = Entrada.cadena();
+		return Aula.getAulaFicticia(nombre);
 	}
 	
 	// Método leerNombreAula
@@ -99,10 +104,8 @@ public class Consola {
 	
 	//Método leerProfesorFicticio
 	public static Profesor leerProfesorFicticio() {
-		System.out.println("Introduzca el correo del profesor");
-		String correoProfesor = Entrada.cadena();
-		Profesor profesor = new Profesor("Carlos", correoProfesor, "669205843");
-		return new Profesor(profesor);
+		System.out.println("Introduce el correo del profesor: ");
+		return Profesor.getProfesorFicticio(Entrada.cadena());
 	}
 
 	// Método leerTramo
@@ -123,25 +126,15 @@ public class Consola {
 
 	// Método leerDia
 	public static LocalDate leerDia() {
-		LocalDate fechaDevuelta = null;
-		boolean excepcion = false;
-		do {
-			try {
-				System.out.println("Introduzca una fecha(formato dd/mm/aaaa):");
-				String fechaIntroducida = Entrada.cadena();
-				fechaDevuelta = LocalDate.parse(fechaIntroducida, FORMATO_DIA);
-				excepcion = false;
-
-			} catch (DateTimeParseException e) {
-				System.out.println("ERROR: Formato incorrecto");
-				excepcion = true;
-			}
-			if(fechaDevuelta.isBefore(LocalDate.now())) {
-				System.out.println("ERROR: La fecha introducida no puede ser anterior al día presente");
-				excepcion=true;
-			}
-		} while (excepcion == true);
-		return fechaDevuelta;
+		LocalDate dia = null;
+		System.out.println("Introduza una fecha(dd/MM/yyyy):");
+		String fecha = Entrada.cadena();
+		try {
+			dia = LocalDate.parse(fecha, FORMATO_DIA);
+		} catch (DateTimeParseException e) {
+			System.out.println("ERROR: El formato de la fecha no es correcto.");
+		}
+		return dia;
 	}
 	
 	//Método elegirPermanencia
@@ -160,7 +153,7 @@ public class Consola {
 	public static Permanencia leerPermanencia() {
 		int permanenciaElegida = elegirPermanencia();
 		Permanencia resolucionPermanencia = null;
-		if(permanenciaElegida==1) {
+		if(permanenciaElegida == 1) {
 			resolucionPermanencia = new PermanenciaPorTramo(leerDia(), leerTramo());
 		}
 		else {
@@ -181,7 +174,7 @@ public class Consola {
 			try {
 				System.out.println("Introduzca una hora con el siguiente formato: HH:00 (siendo H el número de la hora:");
 				String horaIntroducida = Entrada.cadena();
-				hora = LocalTime.parse(horaIntroducida);
+				hora = LocalTime.parse (horaIntroducida);
 				excepcion = false;
 			} catch (DateTimeParseException e) {
 				System.out.println("ERROR: Formato incorrecto");
@@ -193,14 +186,14 @@ public class Consola {
 	
 	//Método leerReserva
 	public static Reserva leerReserva() {
-		Reserva reserva = new Reserva(leerProfesorFicticio(), leerAulaFicticia(), leerPermanencia());
-		return new Reserva (reserva);
+		Profesor profesor = leerProfesorFicticio();
+		Aula aula = leerAulaFicticia();
+		Permanencia permanencia = leerPermanencia();
+		return new Reserva(profesor, aula, permanencia);
 	}
 	
 	//Método leerReservaFicticia
 	public static Reserva leerReservaFicticia() {
-		Profesor profesor = new Profesor ("Carlos", "carlos@gmail.com", "669205843");
-		Reserva reserva = new Reserva (profesor, leerAulaFicticia(), leerPermanencia());
-		return new Reserva (reserva);
+		return Reserva.getReservaFicticia(leerAulaFicticia(), leerPermanencia());
 	}
 }

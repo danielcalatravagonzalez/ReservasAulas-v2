@@ -1,7 +1,6 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;

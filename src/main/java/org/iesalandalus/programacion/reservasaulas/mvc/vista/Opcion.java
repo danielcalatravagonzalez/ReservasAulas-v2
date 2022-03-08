@@ -12,14 +12,14 @@ public enum Opcion {
 			vista.insertarAula();
 		}
 	},
-	BORRAR_AULA("Borrar aula") {
-		public void ejecutar() {
-			vista.borrarAula();
-		}
-	},
 	BUSCAR_AULA("Buscar aula") {
 		public void ejecutar() {
 			vista.buscarAula();
+		}
+	},
+	BORRAR_AULA("Borrar aula") {
+		public void ejecutar() {
+			vista.borrarAula();
 		}
 	},
 	LISTAR_AULAS("Listar aulas") {
@@ -32,17 +32,17 @@ public enum Opcion {
 			vista.insertarProfesor();
 		}
 	},
-	BORRAR_PROFESOR("Borrar profesor") {
-		public void ejecutar() {
-			vista.borrarProfesor();
-		}
-	},
 	BUSCAR_PROFESOR("Buscar profesor") {
 		public void ejecutar() {
 			vista.buscarProfesor();
 		}
 	},
-	LISTAR_PROFESORES("Listar profesores") {
+	BORRAR_PROFESOR("Borrar profesor") {
+		public void ejecutar() {
+			vista.borrarProfesor();
+		}
+	},
+	LISTAR_PROFESOR("Listar profesores") {
 		public void ejecutar() {
 			vista.listarProfesor();
 		}
@@ -52,7 +52,7 @@ public enum Opcion {
 			vista.realizarReserva();
 		}
 	},
-	BORRAR_RESERVA("Borrar reserva") {
+	BORAR_RESERVA("Borrar reserva") {
 		public void ejecutar() {
 			vista.anularReserva();
 		}
@@ -62,12 +62,12 @@ public enum Opcion {
 			vista.listarReservas();
 		}
 	},
-	LISTAR_RESERVAS_AULA("Listar reservas de aula") {
+	LISTAR_RESERVAS_AULA("Listar reservas de un aula") {
 		public void ejecutar() {
 			vista.listarReservasAula();
 		}
 	},
-	LISTAR_RESERVAS_PROFESOR("Listar reservas de profesor") {
+	LISTAR_RESERVAS_PROFESOR("Listar reservas de un profesor") {
 		public void ejecutar() {
 			vista.listarReservasProfesor();
 		}

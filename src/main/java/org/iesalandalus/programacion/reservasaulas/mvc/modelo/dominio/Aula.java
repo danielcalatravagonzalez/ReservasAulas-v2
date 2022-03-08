@@ -94,8 +94,8 @@ public class Aula {
 	
 	//Método compareTo
 	public int compareTo(Aula aula) {
-		int resultado=0;
-		resultado=this.getNombre().compareTo(aula.getNombre());
+		int resultado = 0;
+		resultado = this.getNombre().compareTo(aula.getNombre());
 		return resultado;
 	}
 
